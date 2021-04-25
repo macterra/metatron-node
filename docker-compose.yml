@@ -4,26 +4,10 @@ services:
   tesseract:
     image: macterra/tesseract-node:v0.06.08
     volumes:
-      - /mnt/volume_tor1_01/tesseract:/data
+      - ./data/tesseract:/data
     ports:
-      - 17331:17331
-      - 18331:18331
-
-  testbtc:
-    image: macterra/bitcoin-node:v0.18.0
-    volumes:
-      - /mnt/volume_tor1_01/bitcoin:/data
-    ports:
-      - 18332:18332
-      - 18333:18333
-
-  bitcoin:
-    image: macterra/bitcoin-node:v0.18.0
-    volumes:
-      - /mnt/volume_tor1_02/bitcoin:/data
-    ports:
-      - 8332:8332
-      - 8333:8333
+      - "17331"
+      - "18331"
 
   scanner_tsr:
     image: macterra/metatron:latest
@@ -31,6 +15,7 @@ services:
       - ./data:/app/data
     depends_on: 
       - ipfs
+      - tesseract
     environment: 
       - SCANNER_CHAIN=TSR
       - SCANNER_START=91796
@@ -38,32 +23,6 @@ services:
     env_file:
       - credentials.tsr.env
       
-  scanner_tbtc:
-    image: macterra/metatron:latest
-    volumes:
-      - ./data:/app/data
-    depends_on: 
-      - ipfs
-    environment: 
-      - SCANNER_CHAIN=tBTC
-      - SCANNER_START=1972048
-      - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
-    env_file:
-      - credentials.tbtc.env
-      
-  scanner_btc:
-    image: macterra/metatron:latest
-    volumes:
-      - ./data:/app/data
-    depends_on: 
-      - ipfs
-    environment: 
-      - SCANNER_CHAIN=BTC
-      - SCANNER_START=679432
-      - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
-    env_file:
-      - credentials.btc.env
-
   webui:
     image: macterra/metatron-webui:latest
     ports:
@@ -82,5 +41,3 @@ services:
     volumes:
       - ./data/export:/export
       - ./data/ipfs:/data/ipfs
-
-  
