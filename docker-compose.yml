@@ -1,6 +1,30 @@
 version: "3.7"
 
 services:
+  tesseract:
+    image: macterra/tesseract-node:v0.06.08
+    volumes:
+      - /mnt/volume_tor1_01/tesseract:/data
+    ports:
+      - 17331:17331
+      - 18331:18331
+
+  testbtc:
+    image: macterra/bitcoin-node:v0.18.0
+    volumes:
+      - /mnt/volume_tor1_01/bitcoin:/data
+    ports:
+      - 18332:18332
+      - 18333:18333
+
+  bitcoin:
+    image: macterra/bitcoin-node:v0.18.0
+    volumes:
+      - /mnt/volume_tor1_02/bitcoin:/data
+    ports:
+      - 8332:8332
+      - 8333:8333
+
   scanner_tsr:
     image: macterra/metatron:latest
     volumes:
