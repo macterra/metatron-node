@@ -26,11 +26,13 @@ services:
       - 8333:8333
 
   scanner_tsr:
-    image: macterra/metatron:latest
+    image: macterra/metatron:v21.05.05
     volumes:
       - ./data:/app/data
     depends_on: 
+      - redis
       - ipfs
+      - tesseract
     environment: 
       - SCANNER_CHAIN=TSR
       - SCANNER_START=91796
@@ -39,11 +41,13 @@ services:
       - credentials.tsr.env
       
   scanner_tbtc:
-    image: macterra/metatron:latest
+    image: macterra/metatron:v21.05.05
     volumes:
       - ./data:/app/data
     depends_on: 
+      - redis
       - ipfs
+      - testbtc
     environment: 
       - SCANNER_CHAIN=tBTC
       - SCANNER_START=1972048
@@ -52,11 +56,13 @@ services:
       - credentials.tbtc.env
       
   scanner_btc:
-    image: macterra/metatron:latest
+    image: macterra/metatron:v21.05.05
     volumes:
       - ./data:/app/data
     depends_on: 
+      - redis
       - ipfs
+      - bitcoin
     environment: 
       - SCANNER_CHAIN=BTC
       - SCANNER_START=679432
@@ -76,11 +82,17 @@ services:
   ipfs:
     image: ipfs/go-ipfs:latest
     ports:
-      - "4001"
-      - "8080"
-      - "5001"
+      - "4001:4001"
+      - "8080:8080"
+      - "5001:5001"
     volumes:
       - ./data/export:/export
       - ./data/ipfs:/data/ipfs
 
+  redis:
+    image: redis:latest
+    ports:
+      - "6397"
+    volumes:
+      - ./data/redis:/data
   
