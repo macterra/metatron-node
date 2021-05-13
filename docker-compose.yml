@@ -26,7 +26,7 @@ services:
       - 8333:8333
 
   scanner_tsr:
-    image: macterra/metatron:v21.05.05
+    image: macterra/metatron:v21.05.08
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -41,7 +41,7 @@ services:
       - credentials.tsr.env
       
   scanner_tbtc:
-    image: macterra/metatron:v21.05.05
+    image: macterra/metatron:v21.05.08
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -56,7 +56,7 @@ services:
       - credentials.tbtc.env
       
   scanner_btc:
-    image: macterra/metatron:v21.05.05
+    image: macterra/metatron:v21.05.08
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -71,13 +71,17 @@ services:
       - credentials.btc.env
 
   webui:
-    image: macterra/metatron-webui:latest
+    image: macterra/metatron-webui:v21.05.12
     ports:
       - "3000:3000"
     volumes:
       - ./data:/app/data
     depends_on: 
       - ipfs
+      - redis
+    environment:
+      - DB_HOST=redis
+      - IPFS_HOST=ipfs
 
   ipfs:
     image: ipfs/go-ipfs:latest
