@@ -26,7 +26,7 @@ services:
       - 8333:8333
 
   scanner_tsr:
-    image: macterra/metatron:v21.05.08
+    image: macterra/metatron:v21.05.16
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -34,6 +34,7 @@ services:
       - ipfs
       - tesseract
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=TSR
       - SCANNER_START=91796
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -41,7 +42,7 @@ services:
       - credentials.tsr.env
       
   scanner_tbtc:
-    image: macterra/metatron:v21.05.08
+    image: macterra/metatron:v21.05.16
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -49,6 +50,7 @@ services:
       - ipfs
       - testbtc
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=tBTC
       - SCANNER_START=1972048
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -56,7 +58,7 @@ services:
       - credentials.tbtc.env
       
   scanner_btc:
-    image: macterra/metatron:v21.05.08
+    image: macterra/metatron:v21.05.16
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -64,6 +66,7 @@ services:
       - ipfs
       - bitcoin
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=BTC
       - SCANNER_START=679432
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -71,7 +74,7 @@ services:
       - credentials.btc.env
 
   webui:
-    image: macterra/metatron-webui:v21.05.12
+    image: macterra/metatron-webui:v21.05.16
     ports:
       - "3000:3000"
     volumes:
