@@ -1,21 +1,13 @@
 version: "3.7"
 
 services:
-  tesseract:
-    image: macterra/tesseract-node:v0.06.08
-    volumes:
-      - ./data/tesseract:/data
-    ports:
-      - "17331"
-      - "18331"
-
   scanner_tsr:
-    image: macterra/metatron:latest
+    image: macterra/metatron
     volumes:
       - ./data:/app/data
     depends_on: 
       - ipfs
-      - tesseract
+      - redis
     environment: 
       - SCANNER_CHAIN=TSR
       - SCANNER_START=91796
@@ -23,8 +15,36 @@ services:
     env_file:
       - credentials.tsr.env
       
+  scanner_tbtc:
+    image: macterra/metatron
+    volumes:
+      - ./data:/app/data
+    depends_on: 
+      - ipfs
+      - redis
+    environment: 
+      - SCANNER_CHAIN=tBTC
+      - SCANNER_START=1972048
+      - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
+    env_file:
+      - credentials.tbtc.env
+      
+  scanner_btc:
+    image: macterra/metatron
+    volumes:
+      - ./data:/app/data
+    depends_on: 
+      - ipfs
+      - redis
+    environment: 
+      - SCANNER_CHAIN=BTC
+      - SCANNER_START=679432
+      - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
+    env_file:
+      - credentials.btc.env
+
   webui:
-    image: macterra/metatron-webui:latest
+    image: macterra/metatron-webui
     ports:
       - "3000:3000"
     volumes:
@@ -41,3 +61,10 @@ services:
     volumes:
       - ./data/export:/export
       - ./data/ipfs:/data/ipfs
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6397"
+    volumes:
+      - ./data/redis:/data

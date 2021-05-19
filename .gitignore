@@ -1,2 +1,4 @@
 data/ipfs
 data/export
+credentials.*
+*.rdb
