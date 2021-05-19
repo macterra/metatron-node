@@ -9,6 +9,7 @@ services:
       - ipfs
       - redis
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=TSR
       - SCANNER_START=91796
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -23,6 +24,7 @@ services:
       - ipfs
       - redis
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=tBTC
       - SCANNER_START=1972048
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -37,6 +39,7 @@ services:
       - ipfs
       - redis
     environment: 
+      - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=BTC
       - SCANNER_START=679432
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
@@ -51,6 +54,8 @@ services:
       - ./data:/app/data
     depends_on: 
       - ipfs
+    environment: 
+      - DB_HOST=redis
 
   ipfs:
     image: ipfs/go-ipfs:latest
