@@ -41,7 +41,7 @@ services:
     environment: 
       - SCANNER_DBHOST=redis
       - SCANNER_CHAIN=BTC
-      - SCANNER_START=679432
+      #- SCANNER_START=679432
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
     env_file:
       - credentials.btc.env
@@ -56,6 +56,7 @@ services:
       - ipfs
     environment: 
       - DB_HOST=redis
+      - IPFS_HOST=ipfs
 
   ipfs:
     image: ipfs/go-ipfs:latest
