@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   scanner_tsr:
-    image: macterra/metatron
+    image: macterra/metatron-scanner
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -17,7 +17,7 @@ services:
       - credentials.tsr.env
       
   scanner_tbtc:
-    image: macterra/metatron
+    image: macterra/metatron-scanner
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -32,7 +32,7 @@ services:
       - credentials.tbtc.env
       
   scanner_btc:
-    image: macterra/metatron
+    image: macterra/metatron-scanner
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -57,6 +57,16 @@ services:
     environment: 
       - DB_HOST=redis
       - IPFS_HOST=ipfs
+
+  wallet:
+    image: macterra/metatron-wallet
+    ports:
+      - "5000:5000"
+    environment: 
+      - DB_HOST=redis
+      - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
+    env_file:
+      - credentials.tsr.env
 
   ipfs:
     image: ipfs/go-ipfs:latest
