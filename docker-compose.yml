@@ -58,8 +58,8 @@ services:
       - DB_HOST=redis
       - IPFS_HOST=ipfs
 
-  wallet:
-    image: macterra/metatron-wallet
+  vault:
+    image: macterra/metatron-vault
     ports:
       - "5000:5000"
     environment: 
