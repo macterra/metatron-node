@@ -65,6 +65,8 @@ services:
     environment: 
       - DB_HOST=redis
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
+    depends_on: 
+      - ipfs
     env_file:
       - credentials.tsr.env
 
