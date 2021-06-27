@@ -81,7 +81,7 @@ services:
       - DB_HOST=redis
       - IPFS_CONNECT=/dns/ipfs/tcp/5001/http
     env_file:
-      - credentials.tsr.env
+      - credentials.vault.env
 
   ipfs:
     image: ipfs/go-ipfs:latest
