@@ -53,7 +53,7 @@ services:
     image: ipfs/go-ipfs:v0.8.0
     ports:
       - "4001"
-      - "8080"
+      - "8080:8080"
       - "5001"
     volumes:
       - ./data/export:/export
