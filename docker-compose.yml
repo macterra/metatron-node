@@ -1,6 +1,14 @@
 version: "3.7"
 
 services:
+  tess:
+    image: macterra/tesseract-node:v21.08.03
+    volumes:
+      - /mnt/volume_tor1_02/tess:/data
+    ports:
+      - 7337:7337
+      - 8337:8337
+
   tesseract:
     image: macterra/tesseract-node:v0.06.08
     volumes:
@@ -25,8 +33,22 @@ services:
       - 8332:8332
       - 8333:8333
 
+  scanner_tess:
+    image: macterra/metatron-scanner:v21.07.24
+    volumes:
+      - ./data:/app/data
+    depends_on: 
+      - redis
+      - ipfs
+      - tesseract
+    environment: 
+      - SCANNER_CHAIN=TESS
+      - SCANNER_START=1
+    env_file:
+      - metatron.env
+      
   scanner_tsr:
-    image: macterra/metatron-scanner:v21.07.18
+    image: macterra/metatron-scanner:v21.07.24
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -40,7 +62,7 @@ services:
       - metatron.env
       
   scanner_tbtc:
-    image: macterra/metatron-scanner:v21.07.18
+    image: macterra/metatron-scanner:v21.07.24
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -54,7 +76,7 @@ services:
       - metatron.env
       
   scanner_btc:
-    image: macterra/metatron-scanner:v21.07.18
+    image: macterra/metatron-scanner:v21.07.24
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -68,7 +90,7 @@ services:
       - metatron.env
 
   vault:
-    image: macterra/metatron-vault:v21.07.18
+    image: macterra/metatron-vault:v21.08.15
     ports:
       - "5000:5000"
     env_file:
