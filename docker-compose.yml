@@ -18,7 +18,7 @@ services:
       - 18331:18331
 
   testbtc:
-    image: macterra/bitcoin-node:v0.21.1
+    image: macterra/bitcoin-node:v22.0
     volumes:
       - /mnt/volume_tor1_02/tbtc:/data
     ports:
@@ -26,7 +26,7 @@ services:
       - 18333:18333
 
   bitcoin:
-    image: macterra/bitcoin-node:v0.21.1
+    image: macterra/bitcoin-node:v22.0
     volumes:
       - /mnt/volume_tor1_03/bitcoin:/data
     ports:
