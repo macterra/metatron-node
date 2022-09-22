@@ -34,7 +34,7 @@ services:
       - 8333:8333
 
   scanner_tess:
-    image: macterra/metatron-scanner:v22.01.04
+    image: ghcr.io/cryptotechguru/metatron-scanner:v22.01.04
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -48,7 +48,7 @@ services:
       - metatron.env
       
   scanner_tsr:
-    image: macterra/metatron-scanner:v22.01.04
+    image: ghcr.io/cryptotechguru/metatron-scanner:v22.01.04
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -62,7 +62,7 @@ services:
       - metatron.env
       
   scanner_tbtc:
-    image: macterra/metatron-scanner:v22.01.04
+    image: ghcr.io/cryptotechguru/metatron-scanner:v22.01.04
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -76,7 +76,7 @@ services:
       - metatron.env
       
   scanner_btc:
-    image: macterra/metatron-scanner:v22.01.04
+    image: ghcr.io/cryptotechguru/metatron-scanner:v22.01.04
     volumes:
       - ./data:/app/data
     depends_on: 
@@ -90,7 +90,7 @@ services:
       - metatron.env
 
   vault:
-    image: macterra/metatron-vault:v22.01.04
+    image: ghcr.io/cryptotechguru/metatron-vault:v22.01.04
     ports:
       - "5000:5000"
     env_file:
